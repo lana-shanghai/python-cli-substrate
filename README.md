@@ -9,10 +9,18 @@ Build the [substrate-node-template](https://github.com/substrate-developer-hub/s
 substrate --dev
 ```
 
-Go to Polkadot [explorer](https://polkadot.js.org/apps/#/explorer) where you should see updating blocks if everything is fine. 
+Go to Polkadot [explorer](https://polkadot.js.org/apps/#/explorer) where you should see updating blocks if everything is fine. In the dropdown menu on the left connect to the local development node.
+
+Install the cargo contract and create the wasm and metadata files with 
+```
+cargo install cargo-contract --force
+cargo contract build
+cargo contract generate-metadata
+```
+
 
 Go to Developer -> Contracts -> Upload Wasm. 
-From the dummy_erc20/target folder, upload the erc20.wasm file as the contract, and the metadata.json file as the contract ABI. After uploading, click "Deploy". Make sure to give it an initial total_supply. 
+From the dummy_erc20/target folder, upload the erc20.wasm file as the contract, and the metadata.json file as the contract ABI. From the accounts menu, choose an address and send yourself some tokens (units) - you need those to pay fees. After uploading, click "Deploy". Make sure to give it an initial total_supply. 
 Save the contract address as it will be needed to call the contract. 
 
 Check that everything deployed by going to Contract -> Developer -> Instance -> Messages and call the total_supply() function as an RPC call. 
@@ -28,7 +36,7 @@ Check that it works with
 polkadot-js-api query.timestamp.now
 ```
 
-CD into the storage_cli directory and add your seed phrase.
+In query.py add your seed phrase.
 The buyer and seller addresses are Alice and Bob's hex addresses. 
 
 activate the environment with 
@@ -42,7 +50,7 @@ In there, install Click by running
 python -m pip install .
 ```
 
-## Available commands: 
+## Available commands (replace the contract address with your deployed contract): 
 
 ```
 storage balance 5FLEkQLanHeoQPJXzuxT3eVBRh8A5rBvb5sMajfJeV8EJyXT 
