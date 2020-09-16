@@ -8,14 +8,15 @@ Build the [substrate-node-template](https://github.com/substrate-developer-hub/s
 ```
 substrate --dev
 ```
+The version we used was [v2.0.0-rc4](https://github.com/substrate-developer-hub/substrate-node-template/releases/tag/v2.0.0-rc4). 
 
 Go to Polkadot [explorer](https://polkadot.js.org/apps/#/explorer) where you should see updating blocks if everything is fine. In the dropdown menu on the left connect to the local development node.
 
 Install the cargo contract and create the wasm and metadata files with 
 ```
 cargo install cargo-contract --force
-cargo contract build
-cargo contract generate-metadata
+cargo +nightly contract build
+cargo +nightly contract generate-metadata
 ```
 
 
