@@ -19,6 +19,7 @@ cargo +nightly contract build
 cargo +nightly contract generate-metadata
 ```
 
+In accounts, send some funds to your account to be able to pay for fess and make transfers. Alice by default has 1M tokens. 
 
 Go to Developer -> Contracts -> Upload Wasm. 
 From the dummy_erc20/target folder, upload the erc20.wasm file as the contract, and the metadata.json file as the contract ABI. From the accounts menu, choose an address and send yourself some tokens (units) - you need those to pay fees. After uploading, click "Deploy". Make sure to give it an initial total_supply. 
@@ -37,8 +38,8 @@ Check that it works with
 polkadot-js-api query.timestamp.now
 ```
 
-In query.py add your seed phrase.
-The buyer and seller addresses are Alice and Bob's hex addresses. 
+In .env add your seed phrase.
+The buyer and seller addresses are Alice and Bob's addresses from the default test accounts. 
 
 activate the environment with 
 ```
