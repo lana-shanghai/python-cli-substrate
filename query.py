@@ -1,7 +1,12 @@
 import click
+import struct
 import subprocess
+import utils
+from decouple import config
 
-seed_phrase = ""
+seed_phrase = config("seed_phrase")
+buyer = config("bob_address")
+seller = config("alice_address")
 value_to_contract = "0"
 gas = "1000000000000"
 default_rate = "0c" # 0x0c in hexadecimal is 12 in decimal
@@ -9,10 +14,8 @@ function_ids = {
 	"get_trade":"0x52bd11c0",
 	"store_trade":"0x8fce8545"
 }
-buyer = "8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48"
-seller = "d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
 value = "0000c16ff28623000000000000000000"
-#"0000000000000000002386f26fc10000"
+
 
 
 @click.group()
@@ -52,7 +55,8 @@ def store_trade(contract_address, trade_id, buyer=buyer, seller=seller, seed_phr
 	fid (str): the hex representation of the function, generated in the metadata. 
 
 	'''
-	
+	buyer_addr = utils.address_to_hex(buyer)
+	seller_addr = utils.address_to_hex(seller)
 	store_trades = subprocess.run(["polkadot-js-api", 
 		"--seed", 
 		"\""+seed_phrase+"\"",
@@ -60,7 +64,7 @@ def store_trade(contract_address, trade_id, buyer=buyer, seller=seller, seed_phr
 		"{}".format(contract_address), 
 		value_to_contract, 
 		gas,
-		fid  + "{}".format(trade_id) + "{}".format(buyer) + "{}".format(seller) + \
+		fid  + "{}".format(trade_id) + "{}".format(buyer_addr) + "{}".format(seller_addr) + \
 		"{}".format(value)  + "{}".format(rate) ])
 
 @main.command()
@@ -91,5 +95,3 @@ def get_trade(contract_address, trade_id, seed_phrase=seed_phrase, value_to_cont
 		gas, 
 		fid + "{}".format(trade_id)])
 
-
-# "buddy shy mass rather proud draw quit hundred romance cover dynamic gadget"
